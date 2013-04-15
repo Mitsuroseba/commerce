@@ -89,10 +89,11 @@ class FeedsCrawler extends FeedsHTTPFetcher {
   }
 
   private function parseXPath($result, $source_config) {
-    dpm($result);
+
     $dom = new DOMDocument();
     $dom->loadHTML($result->getRaw());
     $xml = simplexml_import_dom($dom);
+    dpm($xml);
     unset($dom);
     $href = $xml->xpath($source_config['crawler']['xpath']);
     unset($xml);
