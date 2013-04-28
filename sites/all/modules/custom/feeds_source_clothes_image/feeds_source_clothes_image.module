@@ -1,0 +1,42 @@
+<?php
+
+/**
+ * Alter mapping sources.
+ *
+ * Use this hook to add additional mapping sources for any parser. Allows for
+ * registering a callback to be invoked at mapping time.
+ *
+ * @see my_source_get_source().
+ * @see locale_feeds_parser_sources_alter().
+ */
+function feeds_source_clothes_image_feeds_parser_sources_alter(&$sources, $content_type) {
+  $sources['url_image_converted'] = array(
+    'name' => t('Url img converted'),
+    'description' => t('Image url.'),
+    'callback' => 'feeds_source_clothes_image_get_source',
+  );
+}
+
+/**
+ * Example callback specified in hook_feeds_parser_sources_alter().
+ *
+ * To be invoked on mapping time.
+ *
+ * @param $source
+ *   The FeedsSource object being imported.
+ * @param $result
+ *   The FeedsParserResult object being mapped from.
+ * @param $key
+ *   The key specified in the $sources array in
+ *   hook_feeds_parser_sources_alter().
+ *
+ * @return
+ *   The value to be extracted from the source.
+ *
+ * @see hook_feeds_parser_sources_alter().
+ * @see locale_feeds_get_source().
+ */
+function feeds_source_clothes_image_get_source($source, FeedsParserResult $result, $key) {
+  $item = $result->currentItem();
+  return $item['description'];
+}
